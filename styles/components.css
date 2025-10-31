@@ -1,0 +1,194 @@
+/* Componentes globales: Header y Footer */
+/* Palette y tipografía siguen Quicksand/Fredoka ya enlazadas en cada página */
+
+/* Header / Navbar */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: linear-gradient(135deg, #00838F 0%, #006064 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(0,131,143,0.25);
+}
+
+.nav-wrap {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+}
+
+.nav-logo {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.4em;
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 16px;
+}
+
+.nav-menu a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 18px;
+  transition: all 0.3s ease;
+}
+
+.nav-menu a:hover {
+  background: rgba(255,255,255,0.15);
+  transform: translateY(-2px);
+}
+
+.hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.hamburger span {
+  display: block;
+  height: 3px;
+  background: white;
+  margin: 8px;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger.open span:nth-child(1) { transform: translateY(11px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-11px) rotate(-45deg); }
+
+@media (max-width: 900px) {
+  .nav-menu {
+    position: fixed;
+    inset: 60px 0 0 0;
+    background: linear-gradient(135deg, #00838F 0%, #006064 100%);
+    padding: 20px;
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  }
+  .nav-menu.open { display: flex; }
+  .hamburger { display: block; }
+}
+
+/* Footer (basado en estilos existentes de las páginas) */
+.footer {
+  background: linear-gradient(135deg, #00838F 0%, #006064 100%);
+  color: white;
+  margin-top: 80px;
+  padding: 60px 20px 20px;
+}
+
+.footer-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-section { animation: fadeInUp 0.8s ease; }
+
+.footer-title {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.8em;
+  margin-bottom: 15px;
+  color: white;
+}
+
+.footer-subtitle {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.3em;
+  margin-bottom: 15px;
+  color: #B2EBF2;
+}
+
+.footer-text {
+  font-size: 1em;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.footer-links { list-style: none; padding: 0; }
+.footer-links li { margin-bottom: 10px; font-size: 1em; opacity: 0.9; transition: all 0.3s ease; }
+.footer-links li:hover { opacity: 1; transform: translateX(5px); }
+.footer-links a { color: white; text-decoration: none; transition: all 0.3s ease; }
+.footer-links a:hover { color: #B2EBF2; }
+
+.social-links { display: flex; gap: 10px; flex-wrap: wrap; }
+.social-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 0.95em;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+.social-btn:hover { background: white; color: #00838F; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+
+.footer-cta-btn {
+  width: 100%;
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #4DD0E1, #00BCD4);
+  border: none;
+  border-radius: 15px;
+  color: white;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.footer-cta-btn:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(77, 208, 225, 0.4); }
+.footer-cta-btn.secondary { background: transparent; border: 2px solid white; }
+.footer-cta-btn.secondary:hover { background: white; color: #00838F; }
+
+.footer-bottom {
+  text-align: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.95em;
+  opacity: 0.8;
+}
+.footer-bottom p { margin: 5px 0; }
+
+/* Animaciones utilitarias si no las define la página */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Compensación para header fijo */
+.has-fixed-header {
+  padding-top: 66px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 0; /* elimina barra blanca inferior causada por padding del body */
+}
+
+#app-footer { margin-top: auto; }

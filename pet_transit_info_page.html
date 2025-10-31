@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tránsito - Patitas con Esperanza</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/components.css">
+    <script src="js/components/header.js" defer></script>
+    <script src="js/components/footer.js" defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #FFFFFF;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .header h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 3.5em;
+            color: #00838F;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: #006064;
+            font-weight: 500;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: linear-gradient(135deg, #4DD0E1 0%, #00BCD4 100%);
+            padding: 60px 40px;
+            border-radius: 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,131,143,0.3);
+        }
+
+        .hero-section::before {
+            content: '🏠';
+            position: absolute;
+            font-size: 20em;
+            opacity: 0.1;
+            top: -80px;
+            right: -80px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 1.3em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .hero-cta {
+            padding: 18px 40px;
+            background: white;
+            color: #00838F;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+        }
+
+        /* What is Transit Section */
+        .info-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.8em;
+            color: #00838F;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #4DD0E1, #00BCD4);
+            border-radius: 2px;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,131,143,0.15);
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,131,143,0.25);
+        }
+
+        .info-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .info-card h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8em;
+            color: #00838F;
+            margin-bottom: 15px;
+        }
+
+        .info-card p {
+            font-size: 1.1em;
+            color: #546E7A;
+            line-height: 1.7;
+        }
+
+        /* Process Section */
+        .process-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 50px 40px;
+            background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,131,143,0.15);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .step {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .step:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,131,143,0.25);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #4DD0E1, #00BCD4);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8em;
+            font-weight: 700;
+            margin: 0 auto 20px;
+            box-shadow: 0 5px 20px rgba(0,188,212,0.4);
+        }
+
+        .step-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5em;
+            color: #00838F;
+            margin-bottom: 12px;
+        }
+
+        .step-description {
+            font-size: 1.05em;
+            color: #546E7A;
+            line-height: 1.7;
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            max-width: 1400px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .benefit-item {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            display: flex;
+            align-items: start;
+            gap: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,131,143,0.1);
+        }
+
+        .benefit-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 25px rgba(0,131,143,0.25);
+        }
+
+        .benefit-icon {
+            font-size: 2.5em;
+            min-width: 50px;
+        }
+
+        .benefit-text {
+            flex: 1;
+        }
+
+        .benefit-text h4 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.4em;
+            color: #00838F;
+            margin-bottom: 10px;
+        }
+
+        .benefit-text p {
+            font-size: 1.05em;
+            color: #546E7A;
+            line-height: 1.7;
+        }
+
+        /* Requirements Section */
+        .requirements-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .requirement-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,131,143,0.15);
+            border-left: 5px solid #4DD0E1;
+            transition: all 0.3s ease;
+        }
+
+        .requirement-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,131,143,0.25);
+            border-left-color: #00BCD4;
+        }
+
+        .requirement-card h4 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.4em;
+            color: #00838F;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .requirement-card p {
+            font-size: 1.05em;
+            color: #546E7A;
+            line-height: 1.7;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .faq-list {
+            margin-top: 40px;
+        }
+
+        .faq-item {
+            background: white;
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 18px;
+            box-shadow: 0 5px 15px rgba(0,131,143,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 8px 25px rgba(0,131,143,0.2);
+            transform: translateY(-3px);
+        }
+
+        .faq-question {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3em;
+            color: #00838F;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: start;
+            gap: 12px;
+        }
+
+        .faq-answer {
+            font-size: 1.05em;
+            color: #546E7A;
+            line-height: 1.8;
+            padding-left: 35px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #00838F 0%, #006064 100%);
+            border-radius: 30px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 15px 50px rgba(0,131,143,0.3);
+        }
+
+        .cta-section h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.3em;
+            margin-bottom: 35px;
+            opacity: 0.95;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 18px 40px;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .cta-btn-primary {
+            background: white;
+            color: #00838F;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+        }
+
+        .cta-btn-secondary {
+            background: transparent;
+            color: white;
+            border: 3px solid white;
+        }
+
+        .cta-btn-secondary:hover {
+            background: white;
+            color: #00838F;
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #00838F 0%, #006064 100%);
+            color: white;
+            margin-top: 80px;
+            padding: 60px 20px 20px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .footer-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .footer-subtitle {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #B2EBF2;
+        }
+
+        .footer-text {
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+            font-size: 1em;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links li:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #B2EBF2;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .social-btn:hover {
+            background: white;
+            color: #00838F;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-cta-btn {
+            width: 100%;
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #4DD0E1, #00BCD4);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .footer-cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(77, 208, 225, 0.4);
+        }
+
+        .footer-cta-btn.secondary {
+            background: transparent;
+            border: 2px solid white;
+        }
+
+        .footer-cta-btn.secondary:hover {
+            background: white;
+            color: #00838F;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.95em;
+            opacity: 0.8;
+        }
+
+        .footer-bottom p {
+            margin: 5px 0;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app-header"></div>
+    <div class="header">
+        <h1>🚗 Sé un Hogar Temporal</h1>
+        <p>Brinda un refugio temporal mientras encuentran su familia definitiva</p>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h2>¿Qué es ser Casa de Tránsito?</h2>
+            <p>
+                Es abrir las puertas de tu hogar temporalmente a un animal rescatado, 
+                brindándole amor, cuidados y seguridad mientras encuentra su familia para siempre. 
+                Ser casa de tránsito salva vidas y es una de las formas más valiosas de ayudar.
+            </p>
+            <button class="hero-cta">💚 Quiero ser Casa de Tránsito</button>
+        </div>
+    </section>
+
+    <!-- Info Cards -->
+    <section class="info-section">
+        <h2 class="section-title">¿Por qué es tan importante?</h2>
+        <div class="info-cards">
+            <div class="info-card">
+                <span class="info-icon">🏠</span>
+                <h3>Espacio Limitado</h3>
+                <p>Los refugios tienen capacidad limitada. Cada casa de tránsito permite rescatar un animal más de las calles.</p>
+            </div>
+            <div class="info-card">
+                <span class="info-icon">❤️</span>
+                <h3>Recuperación</h3>
+                <p>Los animales se recuperan mejor en un ambiente hogareño, rodeados de amor y atención personalizada.</p>
+            </div>
+            <div class="info-card">
+                <span class="info-icon">📈</span>
+                <h3>Mayor Adoptabilidad</h3>
+                <p>Un animal socializado en un hogar tiene más posibilidades de ser adoptado y adaptarse a su nueva familia.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <h2 class="section-title">Proceso para ser Casa de Tránsito</h2>
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3 class="step-title">Inscripción</h3>
+                <p class="step-description">Completa el formulario de postulación con tus datos, tipo de hogar y preferencias de animales.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3 class="step-title">Entrevista</h3>
+                <p class="step-description">Conversamos contigo para conocer tu hogar, familia y disponibilidad. Te explicamos todo el proceso.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3 class="step-title">Evaluación</h3>
+                <p class="step-description">Visitamos tu hogar para asegurarnos de que sea un lugar seguro y adecuado para el animal.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3 class="step-title">Capacitación</h3>
+                <p class="step-description">Te brindamos guías y consejos sobre cuidados básicos, primeros auxilios y manejo del animal.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3 class="step-title">Asignación</h3>
+                <p class="step-description">Te asignamos un animal compatible con tu hogar y estilo de vida. ¡Comienza la aventura!</p>
+            </div>
+            <div class="step">
+                <div class="step-number">6</div>
+                <h3 class="step-title">Acompañamiento</h3>
+                <p class="step-description">Te acompañamos durante todo el proceso con apoyo veterinario, alimento y seguimiento constante.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <h2 class="section-title">Beneficios de ser Casa de Tránsito</h2>
+        <div class="benefits-grid">
+            <div class="benefit-item">
+                <span class="benefit-icon">💝</span>
+                <div class="benefit-text">
+                    <h4>Experiencia sin Compromiso de por Vida</h4>
+                    <p>Perfecta oportunidad para quienes quieren ayudar pero no pueden adoptar permanentemente.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-icon">🎓</span>
+                <div class="benefit-text">
+                    <h4>Aprendizaje y Crecimiento</h4>
+                    <p>Aprenderás sobre el cuidado de animales y recibirás apoyo constante de nuestro equipo de expertos.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-icon">👨‍👩‍👧‍👦</span>
+                <div class="benefit-text">
+                    <h4>Experiencia Familiar Enriquecedora</h4>
+                    <p>Una vivencia que enseña valores de empatía, responsabilidad y amor incondicional a toda la familia.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-icon">🤝</span>
+                <div class="benefit-text">
+                    <h4>Apoyo Continuo Garantizado</h4>
+                    <p>Te acompañamos en todo: alimento, veterinaria, medicamentos y soporte 24/7 ante cualquier duda.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-icon">🌟</span>
+                <div class="benefit-text">
+                    <h4>Salvas Vidas Directamente</h4>
+                    <p>Cada tránsito es una vida salvada y un espacio libre para rescatar otro animal de la calle.</p>
+                </div>
+            </div>
+            <div class="benefit-item">
+                <span class="benefit-icon">📸</span>
+                <div class="benefit-text">
+                    <h4>Ayudas en su Adopción Final</h4>
+                    <p>Conoces su personalidad a fondo y puedes ayudarnos a encontrar la familia perfecta para él o ella.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Requirements Section -->
+    <section class="requirements-section">
+        <h2 class="section-title">Requisitos para ser Casa de Tránsito</h2>
+        <div class="requirements-grid">
+            <div class="requirement-card">
+                <h4>🏠 Espacio Adecuado</h4>
+                <p>Un lugar seguro y cómodo en tu hogar, adaptado a las necesidades del animal. Los perros necesitan patio o compromiso de paseos diarios.</p>
+            </div>
+            <div class="requirement-card">
+                <h4>⏰ Disponibilidad de Tiempo</h4>
+                <p>Tiempo para cuidados básicos, alimentación, paseos y compañía. El animal no debe quedarse solo por períodos muy prolongados.</p>
+            </div>
+            <div class="requirement-card">
+                <h4>👨‍👩‍👧‍👦 Acuerdo Familiar Total</h4>
+                <p>Todos los miembros del hogar deben estar de acuerdo y comprometidos con el cuidado temporal del animal.</p>
+            </div>
+            <div class="requirement-card">
+                <h4>💰 Compromiso de Cuidado</h4>
+                <p>Nosotros cubrimos veterinaria y alimento, pero debes poder brindar cuidados diarios, amor y atención.</p>
+            </div>
+            <div class="requirement-card">
+                <h4>📱 Comunicación Regular</h4>
+                <p>Mantener comunicación con la organización, compartir fotos del progreso y actualizar sobre el estado del animal.</p>
+            </div>
+            <div class="requirement-card">
+                <h4>🐕 Compatibilidad con Mascotas</h4>
+                <p>Si tienes otras mascotas, deben estar vacunadas y ser sociables. Evaluamos compatibilidad antes de asignar.</p>
+            </div>
+            <div class="requirement-card">
+                <h4>🏢 Autorización de Vivienda</h4>
+                <p>Si vives en alquiler, necesitas autorización del propietario para tener animales temporalmente.</p>
+            </div>
+            <div class="requirement-card">
+                <h4>❤️ Amor y Paciencia</h4>
+                <p>Disposición para brindar amor, paciencia y comprensión. Muchos animales vienen de situaciones traumáticas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <h2 class="section-title">Preguntas Frecuentes</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question">
+                    ❓ ¿Cuánto tiempo dura un tránsito?
+                </div>
+                <p class="faq-answer">
+                    Varía según cada caso. Puede ser desde unas semanas hasta varios meses. Te informamos el tiempo estimado antes de asignarte el animal, pero siempre hay flexibilidad según las circunstancias.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    ❓ ¿Qué gastos cubre la organización?
+                </div>
+                <p class="faq-answer">
+                    Cubrimos todos los gastos veterinarios (consultas, vacunas, tratamientos, cirugías), alimento balanceado de calidad, antiparasitarios y cualquier medicamento necesario. Tú solo aportas amor y cuidados.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    ❓ ¿Puedo elegir qué animal recibo en tránsito?
+                </div>
+                <p class="faq-answer">
+                    Sí, trabajamos juntos para encontrar el animal más compatible con tu hogar. Consideramos tamaño, edad, energía y temperamento para asegurar una buena experiencia para ambos.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    ❓ ¿Qué pasa si me encariño y quiero adoptarlo?
+                </div>
+                <p class="faq-answer">
+                    ¡Es completamente normal y bienvenido! Como casa de tránsito tienes prioridad en la adopción. Muchas adopciones definitivas surgen de tránsitos exitosos.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    ❓ ¿Qué apoyo recibo durante el tránsito?
+                </div>
+                <p class="faq-answer">
+                    Apoyo constante: línea de WhatsApp 24/7, veterinaria de emergencia, entregas de alimento a domicilio, seguimiento semanal y una comunidad de otros tránsitos para compartir experiencias.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    ❓ ¿Puedo hacer tránsito si tengo otras mascotas?
+                </div>
+                <p class="faq-answer">
+                    Sí, siempre que estén vacunadas y sean sociables. Evaluamos la compatibilidad antes de asignar. Muchos animales en tránsito se benefician de la socialización con otras mascotas.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    ❓ ¿Qué pasa si surge un imprevisto y no puedo continuar?
+                </div>
+                <p class="faq-answer">
+                    Lo entendemos, la vida es impredecible. Solo te pedimos avisar con anticipación para organizar otro hogar de tránsito. No hay penalizaciones, tu bienestar también es importante para nosotros.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    ❓ ¿Puedo ser casa de tránsito si trabajo todo el día?
+                </div>
+                <p class="faq-answer">
+                    Depende del animal. Algunos son independientes y se adaptan bien, otros necesitan más compañía. Te ayudamos a encontrar el caso compatible con tu rutina laboral.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>¿Listo para Cambiar una Vida?</h2>
+        <p>
+            Cada hogar de tránsito es un puente hacia la felicidad. Tu espacio, tu tiempo y tu amor 
+            pueden ser la diferencia entre la vida y la muerte para un animal rescatado.
+        </p>
+        <div class="cta-buttons">
+            <button class="cta-btn cta-btn-primary">🚗 Inscribirme como Casa de Tránsito</button>
+            <button class="cta-btn cta-btn-secondary">💬 Tengo más preguntas</button>
+        </div>
+    </section>
+
+    <div id="app-footer"></div>
+
+    <script>
+        // Smooth animations on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.info-card, .step, .benefit-item, .requirement-card, .faq-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Button hover effects
+        document.querySelectorAll('.hero-cta, .cta-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+        });
+    </script>
+    <script src="js/navigation.js"></script>
+    <script>
+      // Navegación programática hacia la página de animales en tránsito
+      (function() {
+        const primaryCtas = document.querySelectorAll('.hero-cta, .cta-btn-primary');
+        primaryCtas.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            if (window.AppNav) {
+              e.preventDefault();
+              window.AppNav.navigate('transit_animals_page.html', { source: 'transit_info', action: 'cta_to_animals' });
+            } else {
+              window.location.href = 'transit_animals_page.html';
+            }
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

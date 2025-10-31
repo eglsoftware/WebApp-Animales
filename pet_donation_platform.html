@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patitas con Esperanza - Adopción y Donaciones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/components.css">
+    <script src="js/components/header.js" defer></script>
+    <script src="js/components/footer.js" defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #FFFFFF;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .header h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 3.5em;
+            color: #00838F;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: #006064;
+            font-weight: 500;
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,131,143,0.15);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .search-bar {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #80DEEA;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-family: 'Quicksand', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #00838F;
+            box-shadow: 0 0 15px rgba(0,131,143,0.2);
+        }
+
+        .search-bar::after {
+            content: '🔍';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #80DEEA 0%, #4DD0E1 100%);
+            border: none;
+            border-radius: 25px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1em;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .filter-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,131,143,0.3);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #00838F 0%, #006064 100%);
+        }
+
+        .cards-container {
+            max-width: 1400px;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            animation: fadeIn 1s ease;
+        }
+
+        /* Breakpoints para mantener 4/3/2/1 columnas según ancho */
+        @media (max-width: 1200px) {
+            .cards-container { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 900px) {
+            .cards-container { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .cards-container { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 360px) {
+            body { padding-left: 10px; padding-right: 10px; }
+            .cards-container { gap: 16px; }
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,131,143,0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,131,143,0.25);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #B2EBF2, #80DEEA);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translate(-25%, -25%) rotate(0deg); }
+            50% { transform: translate(0%, 0%) rotate(180deg); }
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-name {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8em;
+            color: #00838F;
+            font-weight: 600;
+        }
+
+        .card-type {
+            background: linear-gradient(135deg, #4DD0E1, #26C6DA);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .card-info {
+            color: #546E7A;
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .donation-section {
+            background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 15px;
+        }
+
+        .donation-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: #00838F;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 25px;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4DD0E1 0%, #00BCD4 50%, #00ACC1 100%);
+            border-radius: 15px;
+            transition: width 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: 700;
+            font-size: 0.85em;
+            box-shadow: 0 2px 10px rgba(0,188,212,0.4);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 2px 10px rgba(0,188,212,0.4); }
+            50% { box-shadow: 0 4px 20px rgba(0,188,212,0.7); }
+        }
+
+        .donate-btn {
+            width: 100%;
+            margin-top: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #00BCD4 0%, #00838F 100%);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .donate-btn::before {
+            content: '❤️';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+            transition: left 0.4s ease;
+        }
+
+        .donate-btn:hover::before {
+            left: 15px;
+        }
+
+        .donate-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,188,212,0.4);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .stats-badge {
+            display: inline-block;
+            background: rgba(77, 208, 225, 0.2);
+            padding: 5px 12px;
+            border-radius: 10px;
+            margin: 5px 5px 5px 0;
+            font-size: 0.9em;
+            color: #00838F;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div id="app-header"></div>
+    <div class="header">
+        <h1>🐾 Patitas con Esperanza</h1>
+        <p>Ayúdanos a darles un hogar lleno de amor</p>
+    </div>
+
+    <div class="filter-container">
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Buscar por nombre...">
+        </div>
+        <div class="filters">
+            <button class="filter-btn active">Todos</button>
+            <button class="filter-btn">🐕 Perros</button>
+            <button class="filter-btn">🐱 Gatos</button>
+            <button class="filter-btn">🐰 Otros</button>
+            <button class="filter-btn">💰 Mayor donación</button>
+            <button class="filter-btn">💰 Menor donación</button>
+            <button class="filter-btn">📅 Más reciente</button>
+            <button class="filter-btn">📅 Más antiguo</button>
+        </div>
+    </div>
+
+    <div class="cards-container">
+        <!-- Card 1 -->
+        <div class="card">
+            <div class="card-image">🐕</div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="card-name">Max</div>
+                    <div class="card-type">Perro</div>
+                </div>
+                <div class="card-info">
+                    <div class="stats-badge">🎂 3 años</div>
+                    <div class="stats-badge">📍 En tránsito</div>
+                    <p style="margin-top: 10px;">Golden Retriever amigable y juguetón. Necesita tratamiento veterinario urgente.</p>
+                </div>
+                <div class="donation-section">
+                    <div class="donation-header">
+                        <span>$12,500</span>
+                        <span>Meta: $20,000</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 62.5%">62%</div>
+                    </div>
+                    <button class="donate-btn">Donar ahora</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card">
+            <div class="card-image">🐱</div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="card-name">Luna</div>
+                    <div class="card-type">Gato</div>
+                </div>
+                <div class="card-info">
+                    <div class="stats-badge">🎂 2 años</div>
+                    <div class="stats-badge">💚 En adopción</div>
+                    <p style="margin-top: 10px;">Gatita cariñosa y tranquila. Ideal para departamentos. Busca hogar permanente.</p>
+                </div>
+                <div class="donation-section">
+                    <div class="donation-header">
+                        <span>$8,300</span>
+                        <span>Meta: $15,000</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 55%">55%</div>
+                    </div>
+                    <button class="donate-btn">Donar ahora</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+            <div class="card-image">🐕</div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="card-name">Rocky</div>
+                    <div class="card-type">Perro</div>
+                </div>
+                <div class="card-info">
+                    <div class="stats-badge">🎂 5 años</div>
+                    <div class="stats-badge">🏥 Tratamiento</div>
+                    <p style="margin-top: 10px;">Pastor Alemán rescatado. Necesita cirugía de cadera. Muy leal y protector.</p>
+                </div>
+                <div class="donation-section">
+                    <div class="donation-header">
+                        <span>$18,000</span>
+                        <span>Meta: $25,000</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 72%">72%</div>
+                    </div>
+                    <button class="donate-btn">Donar ahora</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+            <div class="card-image">🐱</div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="card-name">Mimi</div>
+                    <div class="card-type">Gato</div>
+                </div>
+                <div class="card-info">
+                    <div class="stats-badge">🎂 1 año</div>
+                    <div class="stats-badge">💚 En adopción</div>
+                    <p style="margin-top: 10px;">Gatita bebé muy juguetona. Vacunas completas. Perfecta para familias con niños.</p>
+                </div>
+                <div class="donation-section">
+                    <div class="donation-header">
+                        <span>$4,200</span>
+                        <span>Meta: $10,000</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 42%">42%</div>
+                    </div>
+                    <button class="donate-btn">Donar ahora</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 5 -->
+        <div class="card">
+            <div class="card-image">🐰</div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="card-name">Copito</div>
+                    <div class="card-type">Conejo</div>
+                </div>
+                <div class="card-info">
+                    <div class="stats-badge">🎂 6 meses</div>
+                    <div class="stats-badge">💚 En adopción</div>
+                    <p style="margin-top: 10px;">Conejito blanco muy tierno. Necesita jaula y alimento especializado. Muy dócil.</p>
+                </div>
+                <div class="donation-section">
+                    <div class="donation-header">
+                        <span>$3,500</span>
+                        <span>Meta: $8,000</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 43.75%">44%</div>
+                    </div>
+                    <button class="donate-btn">Donar ahora</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="card">
+            <div class="card-image">🐕</div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="card-name">Bella</div>
+                    <div class="card-type">Perro</div>
+                </div>
+                <div class="card-info">
+                    <div class="stats-badge">🎂 4 años</div>
+                    <div class="stats-badge">📍 En tránsito</div>
+                    <p style="margin-top: 10px;">Labrador dulce y obediente. Excelente con niños. Lista para su hogar definitivo.</p>
+                </div>
+                <div class="donation-section">
+                    <div class="donation-header">
+                        <span>$14,800</span>
+                        <span>Meta: $18,000</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 82%">82%</div>
+                    </div>
+                    <button class="donate-btn">Donar ahora</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Interactividad de filtros
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                if (!this.textContent.includes('Mayor') && 
+                    !this.textContent.includes('Menor') && 
+                    !this.textContent.includes('reciente') && 
+                    !this.textContent.includes('antiguo')) {
+                    filterButtons.forEach(btn => {
+                        if (!btn.textContent.includes('Mayor') && 
+                            !btn.textContent.includes('Menor') && 
+                            !btn.textContent.includes('reciente') && 
+                            !btn.textContent.includes('antiguo')) {
+                            btn.classList.remove('active');
+                        }
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Animación de entrada de las tarjetas
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((card, index) => {
+            card.style.animation = `fadeInUp 0.6s ease ${index * 0.1}s both`;
+        });
+
+        // Búsqueda
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            cards.forEach(card => {
+                const name = card.querySelector('.card-name').textContent.toLowerCase();
+                if (name.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+    <div id="app-footer"></div>
+</body>
+</html>

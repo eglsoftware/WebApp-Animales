@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tránsito - Patitas con Esperanza</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/components.css">
+    <script src="js/navigation.js" defer></script>
+    <script src="js/components/header.js" defer></script>
+    <script src="js/components/footer.js" defer></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #FFFFFF;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .header h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 3.5em;
+            color: #00838F;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: #006064;
+            font-weight: 500;
+        }
+
+        /* Filter Container */
+        .filter-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,131,143,0.15);
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .search-bar {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #80DEEA;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-family: 'Quicksand', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: #00838F;
+            box-shadow: 0 0 15px rgba(0,131,143,0.2);
+        }
+
+        .search-bar::after {
+            content: '🔍';
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5em;
+        }
+
+        .filters {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #80DEEA 0%, #4DD0E1 100%);
+            border: none;
+            border-radius: 25px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1em;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .filter-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,131,143,0.3);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #00838F 0%, #006064 100%);
+        }
+
+        /* Cards Container */
+        .cards-container {
+            max-width: 1400px;
+            margin: 40px auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            animation: fadeIn 1s ease;
+        }
+
+        @media (max-width: 1200px) {
+            .cards-container { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 900px) {
+            .cards-container { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .cards-container { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 360px) {
+            body { padding-left: 10px; padding-right: 10px; }
+            .cards-container { gap: 16px; }
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,131,143,0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,131,143,0.25);
+        }
+
+        .transit-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #4DD0E1, #00BCD4);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9em;
+            box-shadow: 0 4px 15px rgba(0,188,212,0.4);
+            z-index: 10;
+        }
+
+        .urgent-badge {
+            background: linear-gradient(135deg, #FF6B6B, #EE5A6F);
+            animation: pulse-urgent 1.5s infinite;
+        }
+
+        @keyframes pulse-urgent {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .recovery-badge {
+            background: linear-gradient(135deg, #FFA726, #FF9800);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #B2EBF2, #80DEEA);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5em;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translate(-25%, -25%) rotate(0deg); }
+            50% { transform: translate(0%, 0%) rotate(180deg); }
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .card-name {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8em;
+            color: #00838F;
+            font-weight: 600;
+        }
+
+        .card-type {
+            background: linear-gradient(135deg, #4DD0E1, #26C6DA);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .pet-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .detail-item {
+            background: rgba(77, 208, 225, 0.1);
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 0.95em;
+            color: #00838F;
+            font-weight: 600;
+        }
+
+        .card-description {
+            color: #546E7A;
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .transit-info {
+            background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        .transit-info-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.1em;
+            color: #00838F;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .transit-requirements {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            font-size: 0.9em;
+            color: #006064;
+        }
+
+        .requirement-tag {
+            background: white;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .personality-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
+            color: #00838F;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .transit-btn {
+            padding: 12px;
+            background: linear-gradient(135deg, #00BCD4 0%, #00838F 100%);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .transit-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(0,188,212,0.4);
+        }
+
+        .info-btn {
+            padding: 12px;
+            background: white;
+            border: 2px solid #4DD0E1;
+            border-radius: 12px;
+            color: #00838F;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .info-btn:hover {
+            background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #00838F 0%, #006064 100%);
+            color: white;
+            margin-top: 80px;
+            padding: 60px 20px 20px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .footer-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .footer-subtitle {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #B2EBF2;
+        }
+
+        .footer-text {
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+            font-size: 1em;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links li:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #B2EBF2;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .social-btn:hover {
+            background: white;
+            color: #00838F;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-cta-btn {
+            width: 100%;
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #4DD0E1, #00BCD4);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .footer-cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(77, 208, 225, 0.4);
+        }
+
+        .footer-cta-btn.secondary {
+            background: transparent;
+            border: 2px solid white;
+        }
+
+        .footer-cta-btn.secondary:hover {
+            background: white;
+            color: #00838F;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.95em;
+            opacity: 0.8;
+        }
+
+        .footer-bottom p {
+            margin: 5px 0;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div id="app-header"></div>
+    <div class="header">
+        <h1>🚗 Animales que Necesitan Tránsito</h1>
+        <p>Bríndale un hogar temporal mientras encuentra su familia definitiva</p>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-container">
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Buscar por nombre...">
+        </div>
+        <div class="filters">
+            <button class="filter-btn active">Todos</button>
+            <button class="filter-btn">🐕 Perros</button>
+            <button class="filter-btn">🐱 Gatos</button>
+            <button class="filter-btn">🐰 Otros</button>
+            <button class="filter-btn">⚡ Urgente</button>
+            <button class="filter-btn">🏥 Recuperación</button>
+            <button class="filter-btn">⏰ Corto plazo</button>
+            <button class="filter-btn">📅 Largo plazo</button>
+        </div>
+    </div>
+
+    <!-- Animals Cards -->
+    <div class="cards-container">
+        <!-- Card 1 - Urgente -->
+        <div class="card">
+            <div class="transit-badge urgent-badge">⚡ URGENTE</div>
+            <div class="card-image">🐕</div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="card-name">Bruno</div>
+                    <div class="card-type">Perro</div>
+                </div>
+                <div class="pet-details">
+                    <div class="detail-item">🎂 2 años</div>
+                    <div class="detail-item">⚖️ 15 kg</div>
+                    <div class="detail-item">♂️ Macho</div>
+                    <div class="detail-item">💉 Vacunado</div>
+                </div>
+                <p class="card-description">
+                    Mestizo muy noble recién rescatado de la calle. Necesita hogar temporal urgente para recuperarse.
+                </p>
+                <div class="transit-info">
+                    <div class="transit-info-title">🏠 Necesita:</div>
+                    <div class="transit-requirements">
+                        <span class="requirement-tag">🏡 Patio o balcón</span>
+                        <span class="requirement-tag">⏰ 2-3 meses</span>
+                    </div>
+                </div>
+                <div class="personality-tags">
+                    <span class="tag">Tranquilo</span>
+                    <span class="tag">Sociable</span>
+                    <span class="tag">Agradecido</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="transit-btn">🚗 Ser Tránsito</button>
+                    <button class="info-btn">📋 Más info</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2 - Recuperación -->
+        <div class="card">
+            <div class="transit-badge recovery-badge">🏥 Recuperación</div>
+            <div class="card-image">🐱</div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="card-name">Mía</div>
+                    <div class="card-type">Gato</div>
+                </div>
+                <div class="pet-details">
+                    <div class="detail-item">🎂 1 año</div>
+                    <div class="detail-item">⚖️ 3 kg</div>
+                    <div class="detail-item">♀️ Hembra</div>
+                    <div class="detail-item">✂️ Castrada</div>
+                </div>
+                <p class="card-description">
+                    Gatita en recuperación post-cirugía. Necesita cuidados especiales y mucho cariño durante 1 mes.
+                </p>
+                <div class="transit-info">
+                    <div class="transit-info-title">🏠 Necesita:</div>
+                    <div class="transit-requirements">
+                        <span class="requirement-tag">🏠 Depto OK</span>
+                        <span class="requirement-tag">⏰ 1 mes</span>
+                        <span class="requirement-tag">💊 Medicación</span>
+                    </div>
+                </div>
+                <div class="personality-tags">
+                    <span class="tag">Cariñosa</span>
+                    <span class="tag">Tranquila</span>
+                    <span class="tag">Dócil</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="transit-btn">🚗 Ser Tránsito</button>
+                    <button class="info-btn">📋 Más info</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card">
+            <div class="transit-badge">🏠 Disponible</div>
+            <div class="card-image">🐕</div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="card-name">Canela</div>
+                    <div class="card-type">Perro</div>
+                </div>
+                <div class="pet-details">
+                    <div class="detail-item">🎂 4 años</div>
+                    <div class="detail-item">⚖️ 22 kg</div>
+                    <div class="detail-item">♀️ Hembra</div>
+                    <div class="detail-item">💉 Vacunada</div>
+                </div>
+                <p class="card-description">
+                    Perra muy obediente y tranquila. Ideal para primer tránsito. Se lleva bien con niños y otras mascotas.
+                </p>
+                <div class="transit-info">
+                    <div class="transit-info-title">🏠 Necesita:</div>
+                    <div class="transit-requirements">
+                        <span class="requirement-tag">🏡 Espacio medio</span>
+                        <span class="requirement-tag">⏰ 2-4 meses</span>
+                    </div>
+                </div>
+                <div class="personality-tags">
+                    <span class="tag">Obediente</span>
+                    <span class="tag">Dulce</span>
+                    <span class="tag">Adaptable</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="transit-btn">🚗 Ser Tránsito</button>
+                    <button class="info-btn">📋 Más info</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="card">
+            <div class="transit-badge">🏠 Disponible</div>
+            <div class="card-image">🐱</div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="card-name">Simón</div>
+                    <div class="card-type">Gato</div>
+                </div>
+                <div class="pet-details">
+                    <div class="detail-item">🎂 3 años</div>
+                    <div class="detail-item">⚖️ 4.5 kg</div>
+                    <div class="detail-item">♂️ Macho</div>
+                    <div class="detail-item">✂️ Castrado</div>
+                </div>
+                <p class="card-description">
+                    Gato independiente y limpio. Perfecto para departamentos. Necesita tránsito mientras encuentra adoptante.
+                </p>
+                <div class="transit-info">
+                    <div class="transit-info-title">🏠 Necesita:</div>
+                    <div class="transit-requirements">
+                        <span class="requirement-tag">🏠 Depto OK</span>
+                        <span class="requirement-tag">⏰ Flexible</span>
+                    </div>
+                </div>
+                <div class="personality-tags">
+                    <span class="tag">Independiente</span>
+                    <span class="tag">Limpio</span>
+                    <span class="tag">Tranquilo</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="transit-btn">🚗 Ser Tránsito</button>
+                    <button class="info-btn">📋 Más info</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 5 - Urgente -->
+        <div class="card">
+            <div class="transit-badge urgent-badge">⚡ URGENTE</div>
+            <div class="card-image">🐕</div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="card-name">Thor</div>
+                    <div class="card-type">Perro</div>
+                </div>
+                <div class="pet-details">
+                    <div class="detail-item">🎂 6 años</div>
+                    <div class="detail-item">⚖️ 30 kg</div>
+                    <div class="detail-item">♂️ Macho</div>
+                    <div class="detail-item">💉 Vacunado</div>
+                </div>
+                <p class="card-description">
+                    Perro grande muy leal. Su dueño se mudó y no puede llevarlo. Urgente tránsito hasta encontrar hogar definitivo.
+                </p>
+                <div class="transit-info">
+                    <div class="transit-info-title">🏠 Necesita:</div>
+                    <div class="transit-requirements">
+                        <span class="requirement-tag">🏡 Patio grande</span>
+                        <span class="requirement-tag">⏰ 1-3 meses</span>
+                    </div>
+                </div>
+                <div class="personality-tags">
+                    <span class="tag">Leal</span>
+                    <span class="tag">Protector</span>
+                    <span class="tag">Entrenado</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="transit-btn">🚗 Ser Tránsito</button>
+                    <button class="info-btn">📋 Más info</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 6 -->
+        <div class="card">
+            <div class="transit-badge">🏠 Disponible</div>
+            <div class="card-image">🐰</div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="card-name">Nieve</div>
+                    <div class="card-type">Conejo</div>
+                </div>
+                <div class="pet-details">
+                    <div class="detail-item">🎂 1 año</div>
+                    <div class="detail-item">⚖️ 2 kg</div>
+                    <div class="detail-item">♀️ Hembra</div>
+                    <div class="detail-item">💉 Vacunada</div>
+                </div>
+                <p class="card-description">
+                    Conejita muy tierna y limpia. Necesita tránsito corto con jaula espaciosa y tiempo para explorar.
+                </p>
+                <div class="transit-info">
+                    <div class="transit-info-title">🏠 Necesita:</div>
+                    <div class="transit-requirements">
+                        <span class="requirement-tag">🏠 Espacio pequeño</span>
+                        <span class="requirement-tag">⏰ 1-2 meses</span>
+                    </div>
+                </div>
+                <div class="personality-tags">
+                    <span class="tag">Dócil</span>
+                    <span class="tag">Limpia</span>
+                    <span class="tag">Curiosa</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="transit-btn">🚗 Ser Tránsito</button>
+                    <button class="info-btn">📋 Más info</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 7 - Recuperación -->
+        <div class="card">
+            <div class="transit-badge recovery-badge">🏥 Recuperación</div>
+            <div class="card-image">🐕</div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="card-name">Luna</div>
+                    <div class="card-type">Perro</div>
+                </div>
+                <div class="pet-details">
+                    <div class="detail-item">🎂 5 años</div>
+                    <div class="detail-item">⚖️ 18 kg</div>
+                    <div class="detail-item">♀️ Hembra</div>
+                    <div class="detail-item">✂️ Castrada</div>
+                </div>
+                <p class="card-description">
+                    Rescatada con pata fracturada. En recuperación post-operatoria. Necesita cuidados y reposo por 6 semanas.
+                </p>
+                <div class="transit-info">
+                    <div class="transit-info-title">🏠 Necesita:</div>
+                    <div class="transit-requirements">
+                        <span class="requirement-tag">🏠 Tranquilo</span>
+                        <span class="requirement-tag">⏰ 2 meses</span>
+                        <span class="requirement-tag">💊 Cuidados</span>
+                    </div>
+                </div>
+                <div class="personality-tags">
+                    <span class="tag">Agradecida</span>
+                    <span class="tag">Tranquila</span>
+                    <span class="tag">Valiente</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="transit-btn">🚗 Ser Tránsito</button>
+                    <button class="info-btn">📋 Más info</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 8 -->
+        <div class="card">
+            <div class="transit-badge">🏠 Disponible</div>
+            <div class="card-image">🐱</div>
+            <div class="card-content">
+                <div class="card-header">
+                    <div class="card-name">Pelusa</div>
+                    <div class="card-type">Gato</div>
+                </div>
+                <div class="pet-details">
+                    <div class="detail-item">🎂 7 años</div>
+                    <div class="detail-item">⚖️ 5 kg</div>
+                    <div class="detail-item">♀️ Hembra</div>
+                    <div class="detail-item">✂️ Castrada</div>
+                </div>
+                <p class="card-description">
+                    Gata senior muy cariñosa. Su familia se mudó al exterior. Busca tránsito tranquilo y amoroso.
+                </p>
+                <div class="transit-info">
+                    <div class="transit-info-title">🏠 Necesita:</div>
+                    <div class="transit-requirements">
+                        <span class="requirement-tag">🏠 Depto OK</span>
+                        <span class="requirement-tag">⏰ 3-6 meses</span>
+                    </div>
+                </div>
+                <div class="personality-tags">
+                    <span class="tag">Cariñosa</span>
+                    <span class="tag">Tranquila</span>
+                    <span class="tag">Educada</span>
+                </div>
+                <div class="action-buttons">
+                    <button class="transit-btn">🚗 Ser Tránsito</button>
+                    <button class="info-btn">📋 Más info</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="app-footer"></div>
+
+    <script>
+        // Interactividad de filtros
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Animación de entrada de las tarjetas
+        const cards = document.querySelectorAll('.card');
+        cards.forEach((card, index) => {
+            card.style.animation = `fadeInUp 0.6s ease ${index * 0.1}s both`;
+        });
+
+        // Búsqueda
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            cards.forEach(card => {
+                const name = card.querySelector('.card-name').textContent.toLowerCase();
+                if (name.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+        // Footer global montado en #app-footer mediante js/components/footer.js
+    </script>
+</body>
+</html>

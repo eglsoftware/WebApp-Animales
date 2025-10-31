@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adopción - Patitas con Esperanza</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/components.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #FFFFFF;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 30px 0;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        .header h1 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 3.5em;
+            color: #00838F;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: #006064;
+            font-weight: 500;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            max-width: 1200px;
+            margin: 40px auto;
+            background: linear-gradient(135deg, #4DD0E1 0%, #00BCD4 100%);
+            padding: 60px 40px;
+            border-radius: 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,131,143,0.3);
+        }
+
+        .hero-section::before {
+            content: '🏡';
+            position: absolute;
+            font-size: 20em;
+            opacity: 0.1;
+            top: -80px;
+            right: -80px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .hero-section p {
+            font-size: 1.3em;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .hero-cta {
+            padding: 18px 40px;
+            background: white;
+            color: #00838F;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+        }
+
+        /* Info Section */
+        .info-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.8em;
+            color: #00838F;
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #4DD0E1, #00BCD4);
+            border-radius: 2px;
+        }
+
+        .info-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,131,143,0.15);
+            transition: all 0.4s ease;
+            text-align: center;
+        }
+
+        .info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,131,143,0.25);
+        }
+
+        .info-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            display: block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .info-card h3 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8em;
+            color: #00838F;
+            margin-bottom: 15px;
+        }
+
+        .info-card p {
+            font-size: 1.1em;
+            color: #546E7A;
+            line-height: 1.7;
+        }
+
+        /* Process Section */
+        .process-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 50px 40px;
+            background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,131,143,0.15);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .step {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .step:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,131,143,0.25);
+        }
+
+        .step-number {
+            background: linear-gradient(135deg, #4DD0E1, #00BCD4);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8em;
+            font-weight: 700;
+            margin: 0 auto 20px;
+            box-shadow: 0 5px 20px rgba(0,188,212,0.4);
+        }
+
+        .step-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5em;
+            color: #00838F;
+            margin-bottom: 12px;
+        }
+
+        .step-description {
+            font-size: 1.05em;
+            color: #546E7A;
+            line-height: 1.7;
+        }
+
+        /* Requirements Section */
+        .requirements-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .requirement-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,131,143,0.15);
+            border-left: 5px solid #4DD0E1;
+            transition: all 0.3s ease;
+        }
+
+        .requirement-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,131,143,0.25);
+            border-left-color: #00BCD4;
+        }
+
+        .requirement-card h4 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.4em;
+            color: #00838F;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .requirement-card p {
+            font-size: 1.05em;
+            color: #546E7A;
+            line-height: 1.7;
+        }
+
+        /* Responsibilities Section */
+        .responsibilities-section {
+            max-width: 1400px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .responsibilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .responsibility-item {
+            background: white;
+            padding: 30px;
+            border-radius: 18px;
+            display: flex;
+            align-items: start;
+            gap: 18px;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,131,143,0.1);
+        }
+
+        .responsibility-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 25px rgba(0,131,143,0.25);
+        }
+
+        .responsibility-icon {
+            font-size: 2.5em;
+            min-width: 50px;
+        }
+
+        .responsibility-text {
+            flex: 1;
+        }
+
+        .responsibility-text h4 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.4em;
+            color: #00838F;
+            margin-bottom: 10px;
+        }
+
+        .responsibility-text p {
+            font-size: 1.05em;
+            color: #546E7A;
+            line-height: 1.7;
+        }
+
+        /* Costs Section */
+        .costs-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .costs-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,131,143,0.15);
+        }
+
+        .costs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .cost-card {
+            background: linear-gradient(135deg, #E0F7FA, #B2EBF2);
+            padding: 25px;
+            border-radius: 18px;
+            text-align: center;
+        }
+
+        .cost-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .cost-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3em;
+            color: #00838F;
+            margin-bottom: 10px;
+        }
+
+        .cost-amount {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8em;
+            color: #00838F;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .cost-description {
+            font-size: 0.95em;
+            color: #546E7A;
+            line-height: 1.6;
+        }
+
+        /* Tips Section */
+        .tips-section {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 50px 40px;
+            background: linear-gradient(135deg, #00838F 0%, #006064 100%);
+            border-radius: 30px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,131,143,0.3);
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .tip-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 18px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tip-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .tip-card h4 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.4em;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tip-card p {
+            font-size: 1.05em;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        .faq-list {
+            margin-top: 40px;
+        }
+
+        .faq-item {
+            background: white;
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 18px;
+            box-shadow: 0 5px 15px rgba(0,131,143,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            box-shadow: 0 8px 25px rgba(0,131,143,0.2);
+            transform: translateY(-3px);
+        }
+
+        .faq-question {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3em;
+            color: #00838F;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: start;
+            gap: 12px;
+        }
+
+        .faq-answer {
+            font-size: 1.05em;
+            color: #546E7A;
+            line-height: 1.8;
+            padding-left: 35px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            max-width: 1000px;
+            margin: 80px auto;
+            padding: 60px 40px;
+            background: linear-gradient(135deg, #00838F 0%, #006064 100%);
+            border-radius: 30px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 15px 50px rgba(0,131,143,0.3);
+        }
+
+        .cta-section h2 {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.3em;
+            margin-bottom: 35px;
+            opacity: 0.95;
+            line-height: 1.7;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 18px 40px;
+            border: none;
+            border-radius: 30px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .cta-btn-primary {
+            background: white;
+            color: #00838F;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .cta-btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.3);
+        }
+
+        .cta-btn-secondary {
+            background: transparent;
+            color: white;
+            border: 3px solid white;
+        }
+
+        .cta-btn-secondary:hover {
+            background: white;
+            color: #00838F;
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #00838F 0%, #006064 100%);
+            color: white;
+            margin-top: 80px;
+            padding: 60px 20px 20px;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .footer-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: white;
+        }
+
+        .footer-subtitle {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            color: #B2EBF2;
+        }
+
+        .footer-text {
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+            font-size: 1em;
+            opacity: 0.9;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links li:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #B2EBF2;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .social-btn:hover {
+            background: white;
+            color: #00838F;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer-cta-btn {
+            width: 100%;
+            padding: 12px 20px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #4DD0E1, #00BCD4);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .footer-cta-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(77, 208, 225, 0.4);
+        }
+
+        .footer-cta-btn.secondary {
+            background: transparent;
+            border: 2px solid white;
+        }
+
+        .footer-cta-btn.secondary:hover {
+            background: white;
+            color: #00838F;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.95em;
+            opacity: 0.8;
+        }
+
+        .footer-bottom p {
+            margin: 5px 0;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="app-header"></div>
+    <div class="header">
+        <h1>🐾 Adopción Responsable</h1>
+        <p>Dale un hogar para siempre a un animal que te espera</p>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h2>¿Qué es la Adopción Responsable?</h2>
+            <p>
+                Adoptar es mucho más que dar un hogar a un animal. Es un compromiso de amor, cuidado y 
+                responsabilidad para toda su vida. Significa elegir salvar una vida en lugar de comprar, 
+                y convertirte en su familia definitiva, en las buenas y en las malas.
+            </p>
+            <button class="hero-cta">💚 Quiero Adoptar</button>
+        </div>
+    </section>
+
+    <!-- Why Adopt -->
+    <section class="info-section">
+        <h2 class="section-title">¿Por qué Adoptar?</h2>
+        <div class="info-cards">
+            <div class="info-card">
+                <span class="info-icon">💖</span>
+                <h3>Salvas una Vida</h3>
+                <p>Cada adopción libera espacio para rescatar otro animal de la calle o situación de peligro.</p>
+            </div>
+            <div class="info-card">
+                <span class="info-icon">🏆</span>
+                <h3>Combates el Comercio</h3>
+                <p>Adoptar en lugar de comprar ayuda a reducir la crianza irresponsable y el maltrato animal.</p>
+            </div>
+            <div class="info-card">
+                <span class="info-icon">🤝</span>
+                <h3>Ganas un Compañero Leal</h3>
+                <p>Los animales rescatados son increíblemente agradecidos y leales. El amor que dan es incondicional.</p>
+            </div>
+            <div class="info-card">
+                <span class="info-icon">👨‍⚕️</span>
+                <h3>Animal Sano y Preparado</h3>
+                <p>Todos nuestros animales están vacunados, desparasitados, castrados y con chequeo veterinario completo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Adoption Process -->
+    <section class="process-section">
+        <h2 class="section-title">Proceso de Adopción</h2>
+        <div class="process-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3 class="step-title">Conoce a los Animales</h3>
+                <p class="step-description">Explora nuestros perfiles en línea o visita el refugio. Cada animal tiene su historia y personalidad única.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3 class="step-title">Solicitud de Adopción</h3>
+                <p class="step-description">Completa el formulario con información sobre tu hogar, familia, experiencia con mascotas y estilo de vida.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3 class="step-title">Entrevista Personal</h3>
+                <p class="step-description">Conversamos contigo para conocer tus expectativas, resolver dudas y asegurar la mejor compatibilidad.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3 class="step-title">Visita al Hogar</h3>
+                <p class="step-description">Visitamos tu hogar para verificar que sea seguro y adecuado. Es para proteger tanto al animal como a ti.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3 class="step-title">Período de Adaptación</h3>
+                <p class="step-description">El animal visita tu hogar por algunos días. Así ambos pueden conocerse y ver si hay química.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">6</div>
+                <h3 class="step-title">Firma de Contrato</h3>
+                <p class="step-description">Si todo va bien, firmas el contrato de adopción con los compromisos y responsabilidades.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">7</div>
+                <h3 class="step-title">¡Bienvenido a Casa!</h3>
+                <p class="step-description">El animal va a su nuevo hogar definitivo. Te acompañamos con seguimiento post-adopción.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">8</div>
+                <h3 class="step-title">Seguimiento</h3>
+                <p class="step-description">Hacemos seguimiento los primeros meses para asegurar que la adaptación sea exitosa.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Requirements -->
+    <section class="requirements-section">
+        <h2 class="section-title">Requisitos para Adoptar</h2>
+        <div class="requirements-grid">
+            <div class="requirement-card">
+                <h4>👤 Ser Mayor de Edad</h4>
+                <p>Debes tener 18 años o más. Los menores pueden adoptar con autorización y presencia de un adulto responsable.</p>
+            </div>
+            <div class="requirement-card">
+                <h4>🏠 Hogar Adecuado</h4>
+                <p>Un espacio seguro, limpio y apropiado para el tamaño y necesidades del animal. Perros grandes necesitan patio o compromiso de ejercicio.</p>
+            </div>
+            <div class="requirement-card">
+                <h4>👨‍👩‍👧‍👦 Acuerdo Familiar</h4>
+                <p>Todos los miembros del hogar deben estar de acuerdo con la adopción y comprometerse con el cuidado del animal.</p>
+            </div>
+            <div class="requirement-card">
+                <h4>💰 Estabilidad Económica</h4>
+                <p>Capacidad para cubrir gastos veterinarios, alimento de calidad, vacunas anuales y emergencias médicas.</p>
+            </div>
+            <div class="requirement-card">
+                <h4>⏰ Tiempo y Disponibilidad</h4>
+                <p>Tiempo diario para paseos, juegos, entrenamiento y compañía. Los animales no deben estar solos por períodos prolongados.</p>
+            </div>
+            <div class="requirement-card">
+                <h4>📋 Documentación</h4>
+                <p>DNI vigente, comprobante de domicilio y, si alquilas, autorización escrita del propietario para tener mascotas.</p>
+            </div>
+            <div class="requirement-card">
+                <h4>🐕 Compatibilidad con Otras Mascotas</h4>
+                <p>Si tienes otras mascotas, deben estar vacunadas, castradas y ser sociables. Evaluamos compatibilidad antes de la adopción.</p>
+            </div>
+            <div class="requirement-card">
+                <h4>❤️ Compromiso de Por Vida</h4>
+                <p>Compromiso de cuidar al animal toda su vida (10-20 años), en salud y enfermedad, sin importar los cambios en tu vida.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Responsibilities -->
+    <section class="responsibilities-section">
+        <h2 class="section-title">Responsabilidades del Adoptante</h2>
+        <div class="responsibilities-grid">
+            <div class="responsibility-item">
+                <span class="responsibility-icon">🏥</span>
+                <div class="responsibility-text">
+                    <h4>Atención Veterinaria</h4>
+                    <p>Chequeos anuales, vacunas al día, desparasitación regular y atención inmediata ante cualquier enfermedad o emergencia.</p>
+                </div>
+            </div>
+            <div class="responsibility-item">
+                <span class="responsibility-icon">🍖</span>
+                <div class="responsibility-text">
+                    <h4>Alimentación de Calidad</h4>
+                    <p>Proveer alimento balanceado premium apropiado para su edad, tamaño y condición de salud. Agua fresca siempre disponible.</p>
+                </div>
+            </div>
+            <div class="responsibility-item">
+                <span class="responsibility-icon">🏃</span>
+                <div class="responsibility-text">
+                    <h4>Ejercicio y Estimulación</h4>
+                    <p>Paseos diarios, juegos, entrenamiento y actividades que mantengan al animal física y mentalmente estimulado.</p>
+                </div>
+            </div>
+            <div class="responsibility-item">
+                <span class="responsibility-icon">🛁</span>
+                <div class="responsibility-text">
+                    <h4>Higiene y Cuidado</h4>
+                    <p>Baños regulares, cepillado, corte de uñas, limpieza dental y mantenimiento general de su salud e higiene.</p>
+                </div>
+            </div>
+            <div class="responsibility-item">
+                <span class="responsibility-icon">🏷️</span>
+                <div class="responsibility-text">
+                    <h4>Identificación</h4>
+                    <p>Mantener collar con chapa identificatoria actualizada. Considerar microchip para mayor seguridad.</p>
+                </div>
+            </div>
+            <div class="responsibility-item">
+                <span class="responsibility-icon">🔒</span>
+                <div class="responsibility-text">
+                    <h4>Seguridad</h4>
+                    <p>Mantener el hogar seguro, patios cerrados, no dejar solo en lugares peligrosos y prevenir escapes.</p>
+                </div>
+            </div>
+            <div class="responsibility-item">
+                <span class="responsibility-icon">💕</span>
+                <div class="responsibility-text">
+                    <h4>Amor y Compañía</h4>
+                    <p>Brindar afecto, atención, paciencia y ser su familia. Los animales necesitan amor tanto como cuidados físicos.</p>
+                </div>
+            </div>
+            <div class="responsibility-item">
+                <span class="responsibility-icon">📞</span>
+                <div class="responsibility-text">
+                    <h4>Comunicación con la Organización</h4>
+                    <p>Informar cualquier cambio de domicilio, situación de salud del animal o si surgen problemas de adaptación.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Costs Section -->
+    <section class="costs-section">
+        <h2 class="section-title">Costos de Mantener un Animal</h2>
+        <div class="costs-content">
+            <p style="font-size: 1.15em; color: #546E7A; line-height: 1.8; margin-bottom: 30px; text-align: center;">
+                <strong>Es importante conocer los costos mensuales y anuales</strong> para asegurarte de que puedes 
+                brindarle una vida de calidad. Estos son costos estimados promedio:
+            </p>
+            <div class="costs-grid">
+                <div class="cost-card">
+                    <div class="cost-icon">🍖</div>
+                    <div class="cost-title">Alimento Mensual</div>
+                    <div class="cost-amount">$15,000 - $30,000</div>
+                    <div class="cost-description">Alimento balanceado de calidad según tamaño y edad</div>
+                </div>
+                <div class="cost-card">
+                    <div class="cost-icon">💉</div>
+                    <div class="cost-title">Veterinario Anual</div>
+                    <div class="cost-amount">$20,000 - $40,000</div>
+                    <div class="cost-description">Vacunas, desparasitación y chequeo general</div>
+                </div>
+                <div class="cost-card">
+                    <div class="cost-icon">🛁</div>
+                    <div class="cost-title">Higiene Mensual</div>
+                    <div class="cost-amount">$5,000 - $15,000</div>
+                    <div class="cost-description">Baños, corte de pelo, uñas y productos de limpieza</div>
+                </div>
+                <div class="cost-card">
+                    <div class="cost-icon">🎾</div>
+                    <div class="cost-title">Accesorios</div>
+                    <div class="cost-amount">$10,000 - $25,000</div>
+                    <div class="cost-description">Camas, juguetes, correa, collar, comederos (inicial)</div>
+                </div>
+                <div class="cost-card">
+                    <div class="cost-icon">🚨</div>
+                    <div class="cost-title">Emergencias</div>
+                    <div class="cost-amount">$50,000+</div>
+                    <div class="cost-description">Fondo de emergencia para tratamientos o cirugías imprevistas</div>
+                </div>
+                <div class="cost-card">
+                    <div class="cost-icon">📊</div>
+                    <div class="cost-title">Total Mensual Estimado</div>
+                    <div class="cost-amount">$25,000 - $50,000</div>
+                    <div class="cost-description">Promedio mensual sin contar emergencias</div>
+                </div>
+            </div>
+            <p style="font-size: 1.05em; color: #00838F; text-align: center; margin-top: 30px; font-weight: 600;">
+                💡 Estos son costos aproximados. Pueden variar según tamaño, raza, edad y condiciones especiales del animal.
+            </p>
+        </div>
+    </section>
+
+    <!-- Tips for New Adopters -->
+    <section class="tips-section">
+        <h2 class="section-title" style="color: white;">Consejos para Nuevos Adoptantes</h2>
+        <div class="tips-grid">
+            <div class="tip-card">
+                <h4>🕐 Ten Paciencia</h4>
+                <p>La adaptación puede tomar semanas o meses. Cada animal tiene su ritmo. Dale tiempo y espacio para sentirse seguro.</p>
+            </div>
+            <div class="tip-card">
+                <h4>🏠 Prepara tu Hogar</h4>
+                <p>Antes de su llegada, ten todo listo: cama, comederos, juguetes, zona segura. Elimina peligros como cables o plantas tóxicas.</p>
+            </div>
+            <div class="tip-card">
+                <h4>📚 Edúcate</h4>
+                <p>Lee sobre su especie, raza y necesidades específicas. Aprende lenguaje corporal y señales de estrés o enfermedad.</p>
+            </div>
+            <div class="tip-card">
+                <h4>🎓 Entrenamiento Positivo</h4>
+                <p>Usa refuerzo positivo, nunca castigos físicos. La paciencia y consistencia son clave para el entrenamiento exitoso.</p>
+            </div>
+            <div class="tip-card">
+                <h4>👥 Socialización</h4>
+                <p>Presenta gradualmente nuevas personas, animales y situaciones. La socialización temprana previene miedos futuros.</p>
+            </div>
+            <div class="tip-card">
+                <h4>📞 Mantén Contacto</h4>
+                <p>No dudes en contactarnos ante cualquier duda o problema. Estamos para apoyarte en toda la transición.</p>
+            </div>
+            <div class="tip-card">
+                <h4>💪 Rutina Consistente</h4>
+                <p>Establece horarios regulares para comida, paseos y descanso. La rutina da seguridad y facilita el entrenamiento.</p>
+            </div>
+            <div class="tip-card">
+                <h4>❤️ Amor Incondicional</h4>
+                <p>Recuerda que pueden tener traumas del pasado. Brinda amor constante, celebra pequeños avances y nunca te rindas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <h2 class="section-title">Preguntas Frecuentes</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question">
+                    ❓ ¿Cuánto tiempo demora el proceso de adopción?
+                </div>
+                <p class="faq-answer">
+                    El proceso completo toma entre 2 a 4 semanas aproximadamente. Esto incluye la solicitud, entrevista, 
+                    visita domiciliaria, período de adaptación y firma del contrato. Priorizamos la calidad sobre la velocidad.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    ❓ ¿Puedo adoptar si vivo en departamento?
+                </div>
+                <p class="faq-answer">
+                    ¡Sí! Muchos animales, especialmente gatos y perros pequeños o medianos tranquilos, se adaptan perfectamente 
+                    a departamentos. Lo importante es compromiso de paseos diarios y estimulación adecuada.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    ❓ ¿Hay un costo de adopción?
+                </div>
+                <p class="faq-answer">
+                    Sí, hay un arancel de adopción que cubre parte de los gastos veterinarios (castración, vacunas, chequeos). 
+                    Varía según el animal pero generalmente es entre $10,000 y $25,000. Es mucho menor que el costo real invertido.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    ❓ ¿Qué pasa si no funciona la adopción?
+                </div>
+                <p class="faq-answer">
+                    Entendemos que a veces la compatibilidad no es la esperada. Tenemos un período de garantía de 30 días. 
+                    Si hay problemas irresolubles, el animal vuelve con nosotros sin penalización. Tu honestidad es importante.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    ❓ ¿Puedo elegir características específicas?
+                </div>
+                <p class="faq-answer">
+                    Sí, trabajamos para encontrar el animal perfecto para tu estilo de vida. Considera tamaño, edad, nivel de 
+                    energía y temperamento. Te ayudamos a hacer la mejor elección para ambos.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    ❓ ¿Los animales adoptados tienen problemas de conducta?
+                </div>
+                <p class="faq-answer">
+                    No necesariamente. Muchos son perfectamente equilibrados. Algunos pueden necesitar paciencia extra por 
+                    experiencias pasadas, pero somos transparentes sobre cualquier necesidad especial. La mayoría solo necesita amor.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    ❓ ¿Puedo adoptar si tengo niños pequeños?
+                </div>
+                <p class="faq-answer">
+                    ¡Sí! De hecho, hay animales que son excelentes con niños. Evaluamos la compatibilidad y te recomendamos 
+                    animales con temperamento adecuado. También damos consejos sobre interacción segura niños-mascotas.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    ❓ ¿Qué incluye el contrato de adopción?
+                </div>
+                <p class="faq-answer">
+                    El contrato especifica tus responsabilidades: cuidados básicos, atención veterinaria, no abandono, 
+                    no reproducción, y autorización para seguimiento. También incluye nuestro compromiso de apoyo post-adopción.
+                </p>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    ❓ ¿Dan seguimiento después de la adopción?
+                </div>
+                <p class="faq-answer">
+                    Sí, hacemos seguimiento los primeros 6 meses con visitas o videollamadas. Además, mantenemos contacto 
+                    permanente. Estás invitado a eventos de adoptantes y puedes consultarnos cuando necesites.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>¿Listo para Cambiar una Vida?</h2>
+        <p>
+            La adopción es una de las decisiones más hermosas que puedes tomar. Un animal rescatado te dará 
+            amor incondicional, lealtad eterna y momentos inolvidables. Ellos solo necesitan una oportunidad.
+        </p>
+        <div class="cta-buttons">
+            <button class="cta-btn cta-btn-primary">🐾 Ver Animales en Adopción</button>
+            <button class="cta-btn cta-btn-secondary">💬 Consultar sobre Adopción</button>
+        </div>
+    </section>
+
+    <div id="app-footer"></div>
+
+    <script>
+        // Smooth animations on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.info-card, .step, .requirement-card, .responsibility-item, .tip-card, .faq-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Button hover effects
+        document.querySelectorAll('.hero-cta, .cta-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transition = 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+        });
+    </script>
+    <script src="js/navigation.js"></script>
+    <script src="js/components/header.js"></script>
+    <script src="js/components/footer.js"></script>
+    <script>
+      // Navegación programática hacia la plataforma de adopciones
+      (function() {
+        const primaryCtas = document.querySelectorAll('.hero-cta, .cta-btn-primary');
+        primaryCtas.forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            if (window.AppNav) {
+              e.preventDefault();
+              window.AppNav.navigate('pet_adoption_page.html', { source: 'adoption_info', action: 'cta' });
+            }
+          });
+        });
+      })();
+    </script>
+</body>
+</html>
