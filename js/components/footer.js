@@ -19,7 +19,7 @@
           <div class="footer-section">
             <h4 class="footer-subtitle">Navegación</h4>
             <ul class="footer-links">
-              <li><a href="Index.html" data-route="Index.html">🏠 Inicio</a></li>
+              <li><a href="index.html" data-route="index.html">🏠 Inicio</a></li>
               <li><a href="pet_donations_info_page.html" data-route="pet_donations_info_page.html">💝 Donaciones</a></li>
               <li><a href="pet_adoption_info_page.html" data-route="pet_adoption_info_page.html">🏠 Adopción</a></li>
               <li><a href="pet_transit_info_page.html" data-route="pet_transit_info_page.html">🚗 Tránsito</a></li>

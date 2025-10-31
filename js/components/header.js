@@ -6,12 +6,12 @@
     mount.innerHTML = `
       <header class="site-header">
         <div class="nav-wrap">
-          <a href="Index.html" class="nav-logo">🐾 Patitas con Esperanza</a>
+          <a href="index.html" class="nav-logo">🐾 Patitas con Esperanza</a>
           <button class="hamburger" aria-label="Abrir menú" aria-expanded="false">
             <span></span><span></span><span></span>
           </button>
           <nav class="nav-menu" aria-label="Navegación principal">
-            <a href="Index.html" data-route="Index.html">Inicio</a>
+            <a href="index.html" data-route="index.html">Inicio</a>
             <a href="pet_donations_info_page.html" data-route="pet_donations_info_page.html">Donaciones</a>
             <a href="pet_adoption_info_page.html" data-route="pet_adoption_info_page.html">Adopciones</a>
             <a href="pet_transit_info_page.html" data-route="pet_transit_info_page.html">Tránsito</a>
